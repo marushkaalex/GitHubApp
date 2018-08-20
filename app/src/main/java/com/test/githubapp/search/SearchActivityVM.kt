@@ -15,4 +15,8 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
             }
         })
     }
+
+    fun search() {
+        Toast.makeText(activity, inputText.get(), Toast.LENGTH_SHORT).show()
+    }
 }
