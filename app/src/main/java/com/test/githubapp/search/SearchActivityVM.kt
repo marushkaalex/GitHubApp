@@ -9,7 +9,10 @@ import com.test.githubapp.base.ActivityViewModel
 import com.test.githubapp.base.RecyclerBindingAdapter
 import com.test.githubapp.base.RecyclerConfiguration
 import com.test.githubapp.binding.SingleLiveEvent
+import com.test.githubapp.data.Repository
 import com.test.githubapp.model.RepoModel
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 
 class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActivity>(activity) {
     val inputText = ObservableField("")
@@ -17,6 +20,7 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
     private val foundItems = mutableListOf<RepoModel>()
     val isSearching = ObservableField<Boolean>()
     val showEmptyQueryMessage = SingleLiveEvent<Unit>()
+    val hideKeyboard = SingleLiveEvent<Unit>()
 
     init {
         initRecycler()
@@ -28,7 +32,16 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
             showEmptyQueryMessage.call()
             return
         }
-        recyclerConfiguration.adapter?.notifyDataSetChanged()
+        hideKeyboard.call()
+        launch(UI) {
+            foundItems.clear()
+            isSearching.set(true)
+            val res = Repository.searchRepositories(query).await()
+            foundItems.addAll(res.items)
+            recyclerConfiguration.adapter?.notifyDataSetChanged()
+            isSearching.set(false)
+            println(res)
+        }
     }
 
     private fun getAdapter(): RecyclerBindingAdapter<RepoModel> {
