@@ -3,4 +3,5 @@
 
     <string name="search_search">Search</string>
     <string name="search_inputHint">Search</string>
+    <string name="search_emptyQueryMessage">Query must not be empty</string>
 </resources>

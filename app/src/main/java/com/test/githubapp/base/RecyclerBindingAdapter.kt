@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import java.util.AbstractList
-
 open class RecyclerBindingAdapter<T>(
         private val holderLayout: Int,
         private val variableId: Int,
-        val items: AbstractList<T>
+        val items: List<T>
 ) : RecyclerView.Adapter<RecyclerBindingAdapter.BindingHolder>() {
 
     var onItemClickListener: OnItemClickListener<T>? = null

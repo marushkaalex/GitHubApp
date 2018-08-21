@@ -6,13 +6,13 @@
 
         <variable
             name="item"
-            type="java.lang.String"/>
+            type="com.test.githubapp.model.RepoModel"/>
     </data>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{item}">
+        android:text="@{item.name}">
 
     </TextView>
 </layout>
