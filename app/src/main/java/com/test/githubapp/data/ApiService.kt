@@ -8,5 +8,6 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("search/repositories")
-    fun searchRepositories(@Query("q") query: String): Deferred<ListResultModel<RepoModel>>
+    fun searchRepositories(@Query("q") query: String, @Query("per_page") perPage: Int)
+            : Deferred<ListResultModel<RepoModel>>
 }

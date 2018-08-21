@@ -18,6 +18,7 @@
             android:id="@+id/search_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="@{!viewModel.isSearching}"
             android:onClick="@{viewModel::search}"
             android:text="@string/search_search"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -26,6 +27,7 @@
             android:id="@+id/search_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:enabled="@{!viewModel.isSearching}"
             android:hint="@string/search_inputHint"
             android:imeOptions="actionSearch"
             android:inputType="text"

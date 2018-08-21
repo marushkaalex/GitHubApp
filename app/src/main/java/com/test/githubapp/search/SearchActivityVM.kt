@@ -1,5 +1,6 @@
 package com.test.githubapp.search
 
+import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -17,7 +18,7 @@ import kotlinx.coroutines.experimental.launch
 class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActivity>(activity) {
     val inputText = ObservableField("")
     val recyclerConfiguration = RecyclerConfiguration()
-    private val foundItems = mutableListOf<RepoModel>()
+    private val foundItems = ObservableArrayList<RepoModel>()
     val isSearching = ObservableField<Boolean>()
     val showEmptyQueryMessage = SingleLiveEvent<Unit>()
     val hideKeyboard = SingleLiveEvent<Unit>()
@@ -33,12 +34,11 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
             return
         }
         hideKeyboard.call()
+        foundItems.clear()
         launch(UI) {
-            foundItems.clear()
             isSearching.set(true)
             val res = Repository.searchRepositories(query).await()
             foundItems.addAll(res.items)
-            recyclerConfiguration.adapter?.notifyDataSetChanged()
             isSearching.set(false)
             println(res)
         }

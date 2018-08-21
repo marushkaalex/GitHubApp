@@ -14,5 +14,5 @@ object Repository {
 
     private val apiService = retrofit.create(ApiService::class.java)
 
-    fun searchRepositories(query: String) = apiService.searchRepositories(query)
+    fun searchRepositories(query: String) = apiService.searchRepositories(query, 100)
 }
