@@ -1,6 +1,7 @@
 package com.test.githubapp.screen.search
 
 import android.databinding.ObservableArrayList
+import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -25,11 +26,12 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
 
     val inputText = ObservableField("")
     val recyclerConfiguration = RecyclerConfiguration()
-    private val foundItems = ObservableArrayList<RepoModel>()
+    val foundItems = ObservableArrayList<RepoModel>()
     val isSearching = ObservableField<Boolean>()
     val showEmptyQueryMessage = SingleLiveEvent<Unit>()
     val hideKeyboard = SingleLiveEvent<Unit>()
     val errorEvent = SingleLiveEvent<String>()
+    val notSearchedYet = ObservableBoolean(true)
 
     init {
         App.viewModelComponent.inject(this)
@@ -55,6 +57,7 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
                 errorEvent.postValue(e.message)
             } finally {
                 isSearching.set(false)
+                notSearchedYet.set(false)
             }
         }
     }

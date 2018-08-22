@@ -6,6 +6,7 @@
     <string name="search_search">Search</string>
     <string name="search_inputHint">Search</string>
     <string name="search_emptyQueryMessage">Query must not be empty</string>
+    <string name="search_nothingFound">Nothing found</string>
 
     <string name="profile_pictureDescription">Profile picture</string>
 </resources>
