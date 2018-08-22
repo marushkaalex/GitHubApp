@@ -13,5 +13,6 @@ class NetworkRepository : Repository {
         DaggerNetworkComponent.create().inject(this)
     }
 
-    override fun searchRepositories(query: String) = gitHubService.searchRepositories(query, 100)
+    override fun searchRepositories(query: String) =
+            gitHubService.searchRepositories(query, 100)
 }

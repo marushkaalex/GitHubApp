@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">GitHubApp</string>
 
+    <string name="common_ok">OK</string>
+
     <string name="search_search">Search</string>
     <string name="search_inputHint">Search</string>
     <string name="search_emptyQueryMessage">Query must not be empty</string>

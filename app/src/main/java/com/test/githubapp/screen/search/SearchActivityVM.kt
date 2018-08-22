@@ -29,6 +29,7 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
     val isSearching = ObservableField<Boolean>()
     val showEmptyQueryMessage = SingleLiveEvent<Unit>()
     val hideKeyboard = SingleLiveEvent<Unit>()
+    val errorEvent = SingleLiveEvent<String>()
 
     init {
         App.viewModelComponent.inject(this)
@@ -43,12 +44,18 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
         }
         hideKeyboard.call()
         foundItems.clear()
+
         launch(UI) {
             isSearching.set(true)
-            val res = repository.searchRepositories(query).await()
-            foundItems.addAll(res.items)
-            isSearching.set(false)
-            println(res)
+            try {
+                val res = repository.searchRepositories(query).await()
+                foundItems.addAll(res.items)
+                isSearching.set(false)
+            } catch (e: Exception) {
+                errorEvent.postValue(e.message)
+            } finally {
+                isSearching.set(false)
+            }
         }
     }
 
