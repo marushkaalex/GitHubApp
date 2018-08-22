@@ -15,7 +15,7 @@ class RecyclerBindingAdapter<T>(
         val items: ObservableList<T>
 ) : RecyclerView.Adapter<RecyclerBindingAdapter.BindingHolder>() {
 
-    var onItemClickListener: OnItemClickListener<T>? = null
+    var onItemClickListener: ((position: Int, item: T) -> Unit)? = null
     private val onListChangedCallback =
             WeakReferenceOnListChangedCallback<ObservableList<T>>(this)
 
@@ -32,7 +32,7 @@ class RecyclerBindingAdapter<T>(
     override fun onBindViewHolder(holder: RecyclerBindingAdapter.BindingHolder, position: Int) {
         val item = items[position]
         holder.binding!!.root.setOnClickListener {
-            onItemClickListener?.onItemClick(position, item)
+            onItemClickListener?.invoke(position, item)
         }
         holder.binding.setVariable(variableId, item)
     }

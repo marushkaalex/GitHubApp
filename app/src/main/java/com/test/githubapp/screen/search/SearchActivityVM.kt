@@ -1,4 +1,4 @@
-package com.test.githubapp.search
+package com.test.githubapp.screen.search
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
@@ -13,6 +13,7 @@ import com.test.githubapp.base.RecyclerConfiguration
 import com.test.githubapp.binding.SingleLiveEvent
 import com.test.githubapp.data.Repository
 import com.test.githubapp.model.RepoModel
+import com.test.githubapp.screen.profile.ProfileActivity
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
@@ -52,7 +53,11 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
     }
 
     private fun getAdapter(): RecyclerBindingAdapter<RepoModel> {
-        val adapter = RecyclerBindingAdapter(R.layout.item_repo, BR.item, foundItems)
+        val adapter = RecyclerBindingAdapter(R.layout.item_repo, BR.item, foundItems).apply {
+            onItemClickListener = { _, item ->
+                ProfileActivity.open(activity, item.owner?.login, item.owner?.avatarUrl)
+            }
+        }
         return adapter
     }
 

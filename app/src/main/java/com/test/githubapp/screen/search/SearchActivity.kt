@@ -1,4 +1,4 @@
-package com.test.githubapp.search
+package com.test.githubapp.screen.search
 
 import android.arch.lifecycle.Observer
 import android.widget.Toast

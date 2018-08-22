@@ -1,7 +1,7 @@
 package com.test.githubapp.di.component
 
 import com.test.githubapp.di.module.RepositoryModule
-import com.test.githubapp.search.SearchActivityVM
+import com.test.githubapp.screen.search.SearchActivityVM
 import dagger.Component
 import javax.inject.Singleton
 

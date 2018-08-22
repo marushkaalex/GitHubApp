@@ -3,11 +3,12 @@ package com.test.githubapp.binding
 import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
 import android.widget.EditText
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
 import com.test.githubapp.base.RecyclerConfiguration
-import android.view.ViewGroup.MarginLayoutParams
-
 
 
 @BindingAdapter("android:onClick")
@@ -44,4 +45,13 @@ fun View.bindBottomMargin(bottomMargin: Float) {
     layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin,
             layoutParams.rightMargin, Math.round(bottomMargin))
     this.layoutParams = layoutParams
+}
+
+@BindingAdapter("android:src")
+fun ImageView.bindSrc(src: String?) {
+    if (src == null) {
+        setImageBitmap(null)
+    } else {
+        Picasso.get().load(src).into(this)
+    }
 }
