@@ -39,10 +39,6 @@ class RecyclerBindingAdapter<T>(
 
     override fun getItemCount() = items.size
 
-    interface OnItemClickListener<T> {
-        fun onItemClick(position: Int, item: T)
-    }
-
     class BindingHolder(v: View) : RecyclerView.ViewHolder(v) {
         val binding: ViewDataBinding? = DataBindingUtil.bind(v)
     }

@@ -10,31 +10,37 @@ import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import javax.inject.Inject
 
 
-abstract class BindingActivity<B : ViewDataBinding, VM : ActivityViewModel<*>>
+abstract class BindingActivity<B : ViewDataBinding, VM : ActivityViewModel>
     : AppCompatActivity() {
 
     lateinit var binding: B
         private set
-    private lateinit var viewModel: VM
+
+    @Inject
+    protected lateinit var viewModel: VM
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initDependencies()
         bind()
     }
 
+    abstract fun initDependencies()
+
     fun bind() {
         binding = DataBindingUtil.setContentView(this, getLayoutId())
-        this.viewModel = if (!::viewModel.isInitialized) onCreate() else viewModel
+//        this.viewModel = if (!::viewModel.isInitialized) onCreate() else viewModel
         binding.setVariable(getVariable(), viewModel)
         binding.executePendingBindings()
     }
 
-    fun resetViewModel() {
-        viewModel = onCreate()
-        binding.setVariable(getVariable(), viewModel)
-    }
+//    fun resetViewModel() {
+//        viewModel = onCreate()
+//        binding.setVariable(getVariable(), viewModel)
+//    }
 
     override fun onStart() {
         super.onStart()
@@ -116,12 +122,6 @@ abstract class BindingActivity<B : ViewDataBinding, VM : ActivityViewModel<*>>
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         viewModel.onWindowFocusChanged(hasFocus)
-    }
-
-    abstract fun onCreate(): VM
-
-    fun getViewModel(): VM {
-        return viewModel
     }
 
     /**

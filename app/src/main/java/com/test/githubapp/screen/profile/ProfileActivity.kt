@@ -2,11 +2,13 @@ package com.test.githubapp.screen.profile
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.MenuItem
 import com.test.githubapp.BR
 import com.test.githubapp.R
 import com.test.githubapp.base.BindingActivity
 import com.test.githubapp.databinding.ActivityProfileBinding
+import com.test.githubapp.di.component.DaggerViewComponent
 
 class ProfileActivity : BindingActivity<ActivityProfileBinding, ProfileActivityVM>()  {
 
@@ -23,17 +25,23 @@ class ProfileActivity : BindingActivity<ActivityProfileBinding, ProfileActivityV
         }
     }
 
-    override fun onCreate(): ProfileActivityVM {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun initDependencies() {
+        DaggerViewComponent.create().inject(this)
 
         val login = intent.getStringExtra(EXTRA_LOGIN)
         val avatarUrl = intent.getStringExtra(EXTRA_AVATAR_URL)
-        return ProfileActivityVM(this, login, avatarUrl)
+
+        viewModel.init(login, avatarUrl)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            getViewModel().finish()
+            finish()
             return true
         }
 

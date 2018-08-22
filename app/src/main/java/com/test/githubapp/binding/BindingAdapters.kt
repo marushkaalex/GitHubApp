@@ -49,7 +49,7 @@ fun View.bindBottomMargin(bottomMargin: Float) {
 
 @BindingAdapter("android:src")
 fun ImageView.bindSrc(src: String?) {
-    if (src == null) {
+    if (src == null || src.isEmpty()) {
         setImageBitmap(null)
     } else {
         Picasso.get().load(src).into(this)

@@ -19,7 +19,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
-class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActivity>(activity) {
+class SearchActivityVM : ActivityViewModel() {
 
     @Inject
     lateinit var repository: Repository
@@ -65,7 +65,7 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
     private fun getAdapter(): RecyclerBindingAdapter<RepoModel> {
         val adapter = RecyclerBindingAdapter(R.layout.item_repo, BR.item, foundItems).apply {
             onItemClickListener = { _, item ->
-                ProfileActivity.open(activity, item.owner?.login, item.owner?.avatarUrl)
+                ProfileActivity.open(App.instance, item.owner?.login, item.owner?.avatarUrl)
             }
         }
         return adapter
@@ -74,7 +74,7 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
     private fun initRecycler() {
         val adapter = getAdapter()
 
-        recyclerConfiguration.layoutManager = LinearLayoutManager(activity)
+        recyclerConfiguration.layoutManager = LinearLayoutManager(App.instance)
         recyclerConfiguration.itemAnimator = DefaultItemAnimator()
         recyclerConfiguration.adapter = adapter
     }

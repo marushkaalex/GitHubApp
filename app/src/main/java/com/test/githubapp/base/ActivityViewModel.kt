@@ -4,14 +4,10 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.databinding.BaseObservable
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 
-abstract class ActivityViewModel<A : AppCompatActivity>(val activity: A) : BaseObservable() {
-    fun finish() {
-        activity.finish()
-    }
+abstract class ActivityViewModel : BaseObservable() {
 
     fun onBackKeyPress(): Boolean {
         return false
