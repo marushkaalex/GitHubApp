@@ -6,7 +6,7 @@ import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiService {
+interface GitHubService {
     @GET("search/repositories")
     fun searchRepositories(@Query("q") query: String, @Query("per_page") perPage: Int)
             : Deferred<ListResultModel<RepoModel>>

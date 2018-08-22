@@ -4,6 +4,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import com.test.githubapp.App
 import com.test.githubapp.BR
 import com.test.githubapp.R
 import com.test.githubapp.base.ActivityViewModel
@@ -14,8 +15,13 @@ import com.test.githubapp.data.Repository
 import com.test.githubapp.model.RepoModel
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
+import javax.inject.Inject
 
 class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActivity>(activity) {
+
+    @Inject
+    lateinit var repository: Repository
+
     val inputText = ObservableField("")
     val recyclerConfiguration = RecyclerConfiguration()
     private val foundItems = ObservableArrayList<RepoModel>()
@@ -24,6 +30,7 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
     val hideKeyboard = SingleLiveEvent<Unit>()
 
     init {
+        App.viewModelComponent.inject(this)
         initRecycler()
     }
 
@@ -37,7 +44,7 @@ class SearchActivityVM(activity: SearchActivity) : ActivityViewModel<SearchActiv
         foundItems.clear()
         launch(UI) {
             isSearching.set(true)
-            val res = Repository.searchRepositories(query).await()
+            val res = repository.searchRepositories(query).await()
             foundItems.addAll(res.items)
             isSearching.set(false)
             println(res)
