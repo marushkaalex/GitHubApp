@@ -6,6 +6,9 @@ import android.view.View
 import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
 import android.widget.EditText
 import com.test.githubapp.base.RecyclerConfiguration
+import android.view.ViewGroup.MarginLayoutParams
+
+
 
 @BindingAdapter("android:onClick")
 fun View.bindOnClick(runnable: Runnable) {
@@ -33,4 +36,12 @@ fun EditText.bindOnSearchInSoftKeyboardListener(runnable: Runnable?) {
             }
         }
     }
+}
+
+@BindingAdapter("android:layout_marginBottom")
+fun View.bindBottomMargin(bottomMargin: Float) {
+    val layoutParams = this.layoutParams as MarginLayoutParams
+    layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin,
+            layoutParams.rightMargin, Math.round(bottomMargin))
+    this.layoutParams = layoutParams
 }
