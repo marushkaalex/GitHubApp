@@ -8,13 +8,17 @@ import com.test.githubapp.R
 import com.test.githubapp.base.BindingActivity
 import com.test.githubapp.databinding.ActivitySearchBinding
 import com.test.githubapp.di.ComponentHolder
+import com.test.githubapp.screen.profile.ProfileActivity
 import com.test.githubapp.util.hideSoftKeyboard
 
 class SearchActivity : BindingActivity<ActivitySearchBinding, SearchActivityVM>() {
 
     override fun initDependencies() {
         ComponentHolder.getSearchActivityComponent().inject(this)
+        bindActions()
+    }
 
+    private fun bindActions() {
         viewModel.showEmptyQueryMessage.observe(this, Observer {
             Toast
                     .makeText(this, R.string.search_emptyQueryMessage, Toast.LENGTH_SHORT)
@@ -30,6 +34,10 @@ class SearchActivity : BindingActivity<ActivitySearchBinding, SearchActivityVM>(
                     .setMessage(it)
                     .setPositiveButton(R.string.common_ok, null)
                     .show()
+        })
+
+        viewModel.showOwnerProfile.observe(this, Observer {
+            ProfileActivity.open(this, it?.login, it?.avatarUrl)
         })
     }
 

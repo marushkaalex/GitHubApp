@@ -14,6 +14,7 @@ import com.test.githubapp.base.RecyclerConfiguration
 import com.test.githubapp.binding.SingleLiveEvent
 import com.test.githubapp.data.Repository
 import com.test.githubapp.di.ComponentHolder
+import com.test.githubapp.model.OwnerModel
 import com.test.githubapp.model.RepoModel
 import com.test.githubapp.screen.profile.ProfileActivity
 import kotlinx.coroutines.experimental.android.UI
@@ -33,6 +34,7 @@ class SearchActivityVM : ActivityViewModel() {
     val hideKeyboard = SingleLiveEvent<Unit>()
     val errorEvent = SingleLiveEvent<String>()
     val notSearchedYet = ObservableBoolean(true)
+    val showOwnerProfile = SingleLiveEvent<OwnerModel>()
 
     init {
         ComponentHolder.getViewModelComponent().inject(this)
@@ -69,7 +71,7 @@ class SearchActivityVM : ActivityViewModel() {
     private fun getAdapter(): RecyclerBindingAdapter<RepoModel> {
         val adapter = RecyclerBindingAdapter(R.layout.item_repo, BR.item, foundItems).apply {
             onItemClickListener = { _, item ->
-                ProfileActivity.open(App.instance, item.owner?.login, item.owner?.avatarUrl)
+                showOwnerProfile.postValue(item.owner)
             }
         }
         return adapter
