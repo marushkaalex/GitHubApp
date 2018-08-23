@@ -1,20 +1,19 @@
 package com.test.githubapp.screen.search
 
 import android.arch.lifecycle.Observer
-import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
 import com.test.githubapp.BR
 import com.test.githubapp.R
 import com.test.githubapp.base.BindingActivity
 import com.test.githubapp.databinding.ActivitySearchBinding
-import com.test.githubapp.di.component.DaggerViewComponent
+import com.test.githubapp.di.ComponentHolder
 import com.test.githubapp.util.hideSoftKeyboard
 
 class SearchActivity : BindingActivity<ActivitySearchBinding, SearchActivityVM>() {
 
     override fun initDependencies() {
-        DaggerViewComponent.create().inject(this)
+        ComponentHolder.getSearchActivityComponent().inject(this)
 
         viewModel.showEmptyQueryMessage.observe(this, Observer {
             Toast

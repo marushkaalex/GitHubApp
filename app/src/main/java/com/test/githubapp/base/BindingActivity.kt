@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
 abstract class BindingActivity<B : ViewDataBinding, VM : ActivityViewModel>
@@ -20,11 +21,13 @@ abstract class BindingActivity<B : ViewDataBinding, VM : ActivityViewModel>
         private set
 
     @Inject
+    @Singleton
     protected lateinit var viewModel: VM
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDependencies()
+        viewModel.onCreate()
         bind()
     }
 

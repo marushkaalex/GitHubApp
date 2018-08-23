@@ -8,9 +8,9 @@ import com.test.githubapp.BR
 import com.test.githubapp.R
 import com.test.githubapp.base.BindingActivity
 import com.test.githubapp.databinding.ActivityProfileBinding
-import com.test.githubapp.di.component.DaggerViewComponent
+import com.test.githubapp.di.ComponentHolder
 
-class ProfileActivity : BindingActivity<ActivityProfileBinding, ProfileActivityVM>()  {
+class ProfileActivity : BindingActivity<ActivityProfileBinding, ProfileActivityVM>() {
 
     companion object {
         private const val EXTRA_LOGIN = "login"
@@ -31,7 +31,7 @@ class ProfileActivity : BindingActivity<ActivityProfileBinding, ProfileActivityV
     }
 
     override fun initDependencies() {
-        DaggerViewComponent.create().inject(this)
+        ComponentHolder.getViewComponent().inject(this)
 
         val login = intent.getStringExtra(EXTRA_LOGIN)
         val avatarUrl = intent.getStringExtra(EXTRA_AVATAR_URL)

@@ -9,8 +9,5 @@ import dagger.Component
 @Component(modules = [VmModule::class])
 interface ViewComponent {
 
-//    @SearchScope
-    fun inject(view: SearchActivity)
-
     fun inject(view: ProfileActivity)
 }

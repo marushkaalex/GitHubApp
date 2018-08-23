@@ -10,6 +10,6 @@ class ProfileActivityVM : ActivityViewModel() {
 
     fun init(login: String?, avatarUrl: String?) {
         this.login.set(login)
-        this.avatarUrl.set(login)
+        this.avatarUrl.set(avatarUrl)
     }
 }

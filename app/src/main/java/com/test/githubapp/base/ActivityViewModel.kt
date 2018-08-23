@@ -9,70 +9,74 @@ import android.view.MenuItem
 
 abstract class ActivityViewModel : BaseObservable() {
 
-    fun onBackKeyPress(): Boolean {
+    open fun onBackKeyPress(): Boolean {
         return false
     }
 
-    fun onStart() {
+    open fun onCreate() {
 
     }
 
-    fun onStop() {
+    open fun onStart() {
 
     }
 
-    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    open fun onStop() {
 
     }
 
-    fun onDestroy() {
+    open fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
     }
 
-    fun onPause() {
+    open fun onDestroy() {
 
     }
 
-    fun onResume() {
+    open fun onPause() {
 
     }
 
-    fun onRequestPermissionsResult(
+    open fun onResume() {
+
+    }
+
+    open fun onRequestPermissionsResult(
             requestCode: Int,
             permissions: Array<String>,
             grantResults: IntArray) {
 
     }
 
-    fun onPostCreate(savedInstanceState: Bundle?) {
+    open fun onPostCreate(savedInstanceState: Bundle?) {
 
     }
 
-    fun onOptionsItemSelected(item: MenuItem) {
+    open fun onOptionsItemSelected(item: MenuItem) {
 
     }
 
-    fun onConfigurationChanged(newConfig: Configuration) {
+    open fun onConfigurationChanged(newConfig: Configuration) {
 
     }
 
-    fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    open fun onRestoreInstanceState(savedInstanceState: Bundle) {
 
     }
 
-    fun onSaveInstanceState(outState: Bundle) {
+    open fun onSaveInstanceState(outState: Bundle) {
 
     }
 
-    fun onCreateOptionsMenu(menu: Menu) {
+    open fun onCreateOptionsMenu(menu: Menu) {
 
     }
 
-    fun onPrepareOptionsMenu(menu: Menu) {
+    open fun onPrepareOptionsMenu(menu: Menu) {
 
     }
 
-    fun onWindowFocusChanged(hasFocus: Boolean) {
+    open fun onWindowFocusChanged(hasFocus: Boolean) {
 
     }
 }

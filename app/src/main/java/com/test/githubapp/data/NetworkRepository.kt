@@ -1,8 +1,7 @@
 package com.test.githubapp.data
 
-import com.test.githubapp.di.component.DaggerNetworkComponent
+import com.test.githubapp.di.ComponentHolder
 import javax.inject.Inject
-
 
 class NetworkRepository : Repository {
 
@@ -10,7 +9,7 @@ class NetworkRepository : Repository {
     lateinit var gitHubService: GitHubService
 
     init {
-        DaggerNetworkComponent.create().inject(this)
+        ComponentHolder.getNetworkComponent().inject(this)
     }
 
     override fun searchRepositories(query: String) =

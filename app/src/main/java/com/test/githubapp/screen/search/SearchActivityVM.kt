@@ -13,6 +13,7 @@ import com.test.githubapp.base.RecyclerBindingAdapter
 import com.test.githubapp.base.RecyclerConfiguration
 import com.test.githubapp.binding.SingleLiveEvent
 import com.test.githubapp.data.Repository
+import com.test.githubapp.di.ComponentHolder
 import com.test.githubapp.model.RepoModel
 import com.test.githubapp.screen.profile.ProfileActivity
 import kotlinx.coroutines.experimental.android.UI
@@ -34,7 +35,10 @@ class SearchActivityVM : ActivityViewModel() {
     val notSearchedYet = ObservableBoolean(true)
 
     init {
-        App.viewModelComponent.inject(this)
+        ComponentHolder.getViewModelComponent().inject(this)
+    }
+
+    override fun onCreate() {
         initRecycler()
     }
 
